@@ -1,5 +1,7 @@
 var http = require('http');//require module http
 var fs = require('fs');//require file system
+const port = process.env.PORT || 3000;
+
 
 http.createServer(function (req, res) {
     fs.readFile('notes.html', function(err, data) {
@@ -8,7 +10,7 @@ http.createServer(function (req, res) {
         return res.end();
       });
     
-}).listen(8080);
+}).listen(port);
 
 
 
