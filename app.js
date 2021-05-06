@@ -4,23 +4,45 @@ const port = process.env.PORT || 3000;
 
 
 http.createServer(function (req, res) {
-    fs.readFile('notes.json',function(err,data){
-        const heading = "My Profile";
+    fs.readFile('notes.html','utf8',function(err,data){
+       
 
-        const datastring = data.toString();
-        const dataObj = JSON.parse(datastring)
+        var result = data.replace(/heading/g, 'my profile').replace(/name_value/g, 'akshara').replace(/age_value/g, '25').replace(/company_value/g, 'Toobler Technologies');
 
-        const dynamicContent = '<!DOCTYPE html>'
-        + '<html><head></head><body><h1>'+heading+'</h1><p>Name:'+dataObj.name+'</p><p>Age:'+dataObj.age+'</p><p>company:'+dataObj.company+'</p></body></html>';
+            
+    fs.writeFile('notes.html', result, 'utf8', function (err,result) {
+        if (err) return console.log(err);
 
-        res.write(dynamicContent);
+     });
 
-        return res.end();
+     fs.readFile('notes.html','utf8',function(err,data){
+         res.write(data);
+         res.end();
+     })
+
+       
 
     })
     
 }).listen(port);
 
+
+// fs.readFile('notes.html','utf8',function(err,data){
+
+//     var result = data.replace(/replacement/, 'aksharaaaaaa');
+
+//     fs.writeFile('notes.html', result, 'utf8', function (err) {
+//         if (err) return console.log(err);
+//      });
+
+//     // res.write(dynamicContent);
+
+//     return res.end();
+
+// })
+
+
+  
 
 
 
